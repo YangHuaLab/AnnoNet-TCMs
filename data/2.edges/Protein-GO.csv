@@ -1,0 +1,4 @@
+,Gene_name,relation,GO_id,Evidence_code,Aspect,Gene_full_name,Gene_synonym,Gene_type
+0,UQCRHL,located_in,GO:0005739,HTP,C,"Cytochrome b-c1 complex subunit 6-like, mitochondrial",UQCRHL,protein
+1,ARHGEF18,located_in,GO:0005829,IDA,C,Rho guanine nucleotide exchange factor 18,ARHGEF18,protein
+2,ARHGEF18,located_in,GO:0005886,IDA,C,Rho guanine nucleotide exchange factor 18,ARHGEF18,protein

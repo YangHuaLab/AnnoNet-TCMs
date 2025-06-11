@@ -1,0 +1,4 @@
+,GO_id1,relationship,GO_id2,type,GO_name1,GO_name2
+0,GO:0000002,is_a,GO:0007005,biological_process,mitochondrial genome maintenance,mitochondrion organization
+1,GO:0000012,is_a,GO:0006281,biological_process,single strand break repair,DNA repair
+2,GO:0000014,is_a,GO:0004520,molecular_function,single-stranded DNA endodeoxyribonuclease activity,DNA endonuclease activity

@@ -1,0 +1,4 @@
+,DisGENet_id,Disease_name,Disease_type,Gene_id,Gene_name,source,associationType,weight
+0,C0001618,Tumors of Adrenal Cortex,group,2771,GNAI2,CGI,CausalMutation,0.3
+1,C0001618,Tumors of Adrenal Cortex,group,5573,PRKAR1A,CGI,CausalMutation,0.3
+2,C0001618,Tumors of Adrenal Cortex,group,7157,TP53,CGI,CausalMutation,0.5

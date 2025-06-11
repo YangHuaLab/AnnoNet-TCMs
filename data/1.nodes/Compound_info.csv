@@ -1,0 +1,4 @@
+,Compound_id,inchikey,name,SMILES
+0,COMP0001,PBBVWJQPAZYQDB-UHFFFAOYSA-N,luteolin-7-o-diglucuronide,C1=CC(=C(C=C1C2=CC(=O)C3=C(C=C(C=C3O2)OC4C(C(C(C(O4)C(=O)O)O)O)OC5C(C(C(C(O5)C(=O)O)O)O)O)O)O)O
+1,COMP0002,HHNCJFKRMZDTHW-UHFFFAOYSA-N,"2-[(2S)-7-oxo-2,3-dihydrofuro[4,5-g]chromen-2-yl]propan-2-yl (E)-2-methylbut-2-enoate",CC=C(C)C(=O)OC(C)(C)C1CC2=C(O1)C=C3C(=C2)C=CC(=O)O3
+2,COMP0003,XZGPUOQGERGURE-UHFFFAOYSA-N,picroside I,C1=CC=C(C=C1)C=CC(=O)OCC2C(C(C(C(O2)OC3C4C(C=CO3)C(C5C4(O5)CO)O)O)O)O
