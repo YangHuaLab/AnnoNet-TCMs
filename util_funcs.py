@@ -7,7 +7,7 @@ import numpy as np
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from MHNetwork import MHNetwork
-from const import NETWORK_FP, OPTIMAL_PMAP
+from const import NETWORK_FP, OPTIMAL_PMAP, OUT_PATH
 
 
 # 返回指定单个节点的指定若干类型的邻居节点
@@ -40,6 +40,11 @@ def getPathAbbr(path: list[str]) -> str:
 
 
 def getParamStr(i: str | list) -> str:
+    """
+        生成形如C1.00_T1.00_D1.00_G1.00_L1.00的字符串
+        输入可以是包含此字符串的字符串
+        也可以是列表[1,1,1,1,1]
+    """
     if isinstance(i, str):
         p = ".*(C.*_T.*_D.*_G.*_L.{4}).*"
         g = re.match(p, i).groups()
@@ -50,10 +55,11 @@ def getParamStr(i: str | list) -> str:
 
 
 def getParamList(i: str | dict) -> list:
+    """CTDGL"""
     if type(i) == str:
         p = ".*C(.*)_T(.*)_D(.*)_G(.*)_L(.{4}).*"
         g = re.match(p, i).groups()
-        return list(np.float64(g))
+        return [float(s) for s in g]
     if type(i) == dict:
         return [list(i['node_weights'].values()), i['LAMBDA']]
 
@@ -74,8 +80,21 @@ def getParamDict(i: str | list) -> dict:
     }
 
 
-def loadPmap(pmap_fp: str = OPTIMAL_PMAP) -> dict:
+def getPmapFP(i: str | list):
+    param_str = getParamStr(i)
+    return OUT_PATH + f'pmaps/39590T+G/{param_str}.pkl'
+
+
+def loadPmap(net: MHNetwork, pmap_fp: str | list) -> dict:
+    """
+        如果pmap_fp路径存在，则直接读取
+        如果不存在，则可能是参数，生成路径并读取
+        若仍不存在，则报错
+    """
     import pickle
+
+    if isinstance(pmap_fp, list) or not os.path.exists(pmap_fp):
+        pmap_fp = OUT_PATH + f'pmaps/{len(net.all_nodes)}/{getParamStr(pmap_fp)}.pkl'
     print(f"Loading pmap {pmap_fp}...", end='', flush=True)
     with open(pmap_fp, 'rb') as f:
         pmap = pickle.load(f)
@@ -103,4 +122,5 @@ def loadMHNet(network_fp: str = NETWORK_FP, force_generate: bool = False) -> MHN
 
 if __name__ == "__main__":
     loadMHNet()
-    print(getParamStr([1, 2, 3, 4, 5]))
+    # print(getParamStr([1, 2, 3, 4, 5]))
+    # print(str2params("/pmaps/propagation_map_C1.00_T1.00_D1.00_G2.00_L0.67_E1e-06.pkl"))

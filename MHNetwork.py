@@ -11,8 +11,6 @@ import numpy as np
 import pandas as pd
 from numpy.typing import ArrayLike
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
 from const import NODE_FILES, NODE_TYPES, NODE_ID, NODE_WEIGHTS
 from const import EDGE_FILES, EDGE_TYPES
 from const import OUT_PATH, LOG_PATH
@@ -24,7 +22,7 @@ class MHNetwork:
     """
     初始化一个MHNetwork实例，实例包含节点信息、边信息，以及药材网络、药效网络。\n
     其中药效网络中包含节点类型、掩码。\n
-    这之后，依次调用：
+    这之后，顺序调用：
     1. self.set_effect_graph_adj_matrix()
        计算药效网络的邻接矩阵
     2. self.set_random_walk_params()
@@ -394,7 +392,7 @@ class MHNetwork:
         else:
             adj = self.get_adj_with_different_weight()
             date = datetime.now().strftime('%Y%m%d')
-            np.save(OUT_PATH + f"adj_matrices/{date}_{self.node_weight_info}.npy", adj)
+            np.save(OUT_PATH + f"adj_matrices/{self.node_weight_info}_{date}.npy", adj)
         return adj
 
     def set_effect_graph_adj_matrix(self, force=False, node_weights: dict = None):
@@ -469,7 +467,7 @@ class MHNetwork:
 
         if save_pmap:
             date = datetime.now().strftime('%Y%m%d')
-            pmap_fp = OUT_PATH + f'pmaps/{date}_{self.node_weight_info}_L{self.LAMBDA:.2f}.pkl'
+            pmap_fp = OUT_PATH + f'pmaps/{len(self.all_nodes)}/{self.node_weight_info}_L{self.LAMBDA:.2f}.pkl'
             with open(pmap_fp, 'wb') as f:
                 pickle.dump(propagation_map, f, pickle.HIGHEST_PROTOCOL)
 
@@ -478,6 +476,22 @@ class MHNetwork:
 
         return propagation_map
 
+    # ----------- 基于传播图计算AUC,PRESICION,RECALL ----------- #
+
+    # def cal_auc_prec_recall(self, propagation_map):
+    #     from utils.ranks_and_metrics import get_D2C_rank, cal_D2C_rank_metrics
+    #     from utils.ranks_and_metrics import get_D2H_rank, cal_D2H_rank_metrics
+    #
+    #     print('get ranks...')
+    #     # D2C_rank = get_D2C_rank(propagation_map, self.effect_graph_node_type_masks)
+    #     D2H_rank = get_D2H_rank(propagation_map, self.herb_graph, self.eg_node_type_masks)
+    #     print('get metrics...')
+    #     # auc,precision,recall = cal_D2C_rank_metrics(D2C_rank)  # [auc,precision,recall]
+    #     # D2C_rank_metrics = [auc,precision,recall]
+    #     auc, precision, recall = cal_D2H_rank_metrics(D2H_rank)  # [auc,precision,recall]
+    #     D2H_rank_metrics = [auc, precision, recall]
+    #     return D2H_rank_metrics  # [[auc,precision,recall],[auc,precision,recall]]
+    #
     def log_rw_params(self):
         logging.info("Random Walk Parameters:")
         logging.info("Compound:  %s", self.node_weights['Compound'])
@@ -486,4 +500,21 @@ class MHNetwork:
         logging.info("GO:        %s", self.node_weights['GO'])
         logging.info("LAMBDA:    %s", self.LAMBDA)
         logging.info("EPSILON:   %s", self.EPSILON)
+    #
+    # def log_pmap_metrics(self, auc, precision, recall):
+    #     logging.info("auc:       %s", auc)
+    #     logging.info("precision: %s", precision)
+    #     logging.info("recall:    %s", recall)
 
+
+if __name__ == "__main__":
+    net = MHNetwork()
+    n_herbs = len(net.node_info['Herb'])
+    n_comps = len(net.node_info['Compound'])
+    n_targs = len(net.node_info['Target'])
+    n_GOs = len(net.node_info['GO'])
+    n_dises = len(net.node_info['Disease'])
+
+    fp = f"network/net_H{n_herbs}_C{n_comps}_T{n_targs}_G{n_GOs}_D{n_dises}_with_propotion.pkl"
+    with open(fp, 'wb') as f:
+        pickle.dump(net, f, pickle.HIGHEST_PROTOCOL)

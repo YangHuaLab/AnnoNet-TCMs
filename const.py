@@ -86,5 +86,13 @@ NODE_WEIGHTS = {
 Weight of each type of node
 """
 
-OPTIMAL_PMAP = OUT_PATH + 'path_to_pmap.pkl'
-NETWORK_FP = OUT_PATH + 'path_to_net.pkl'
+POS_PAIR_FILES = {
+    "D2C": DATA_PATH+"3.positive_pairs/Positive_Disease_Compound_pair_in_HERB.csv",
+    "D2H": DATA_PATH+"3.positive_pairs/Positive_Disease_Herb_pair_in_HERB.csv"
+}
+
+PPI_DIST_MAT_FILE = DATA_PATH+"ppi_dist_matrix_uint8.npy"
+PPI_DIST_MAT_NODE2ID_FILE = DATA_PATH+"ppi_node_to_id.pkl"
+
+OPTIMAL_PMAP = OUT_PATH + 'pmaps/propagation_map_C1.00_T1.00_D1.00_G1.00_L0.01.pkl'
+NETWORK_FP = ROOT_PATH + 'network/net.pkl'

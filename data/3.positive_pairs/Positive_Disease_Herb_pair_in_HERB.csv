@@ -1,0 +1,4 @@
+,DisGENet_id,Disease_name,Disease_type,Herb,Herb_id
+0,C0000737,Abdominal Pain,phenotype,辣椒,HERB071
+1,C0001403,Addison Disease,disease,甘草,HERB235
+2,C0001418,Adenocarcinoma,group,蘑菇,HERB048
