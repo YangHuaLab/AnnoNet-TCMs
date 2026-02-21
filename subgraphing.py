@@ -14,7 +14,6 @@ import networkx as nx
 import pandas as pd
 from scipy.stats import rankdata
 
-sys.path.append(dirname(dirname(abspath(__file__))))
 from MHNetwork import MHNetwork
 from const import OPTIMAL_PMAP, OUT_PATH
 from logger import run_log, worker_log

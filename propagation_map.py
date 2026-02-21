@@ -10,7 +10,6 @@ import scipy
 from numpy.typing import ArrayLike
 from scipy import sparse
 
-sys.path.append(dirname(dirname(abspath(__file__))))
 from const import NODE_WEIGHTS
 from PMRWRH import PMRWRH
 from logger import worker_log

@@ -9,7 +9,6 @@ import networkx as nx
 import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from const import OUT_PATH
 
 ###################### 绘制子网络图所需函数 ######################

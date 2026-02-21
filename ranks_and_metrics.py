@@ -21,11 +21,9 @@ from sklearn.model_selection import train_test_split
 from scipy.stats import entropy
 from scipy.spatial.distance import jensenshannon, cosine, correlation, chebyshev, canberra
 
-SCRIPT_DIR = dirname(abspath(__file__))
-sys.path.append(dirname(SCRIPT_DIR))
 from data.positive_pair_info import POS_D2C_DISEASES, POS_D2H_DISEASES, POS_DISEASES, POS_PAIRS
 from data.ppi_info import PPI_DIST_MAT, PPI_DIST_MAT_NODE2ID
-from .utils import MHNetwork
+from MHNetwork import MHNetwork
 from const import ROOT_PATH, OUT_PATH
 from logger import run_log, worker_log
 from util_funcs import getNeighborNodes, getParamList, getParamStr, loadMHNet, loadPmap
